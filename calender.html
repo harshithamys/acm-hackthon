@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal Calendar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            background-color: #3949ab;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            color: #fff;
+            position: fixed;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        .sidebar li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+        .sidebar li a:hover {
+            background-color: #5c6bc0;
+        }
+        .content {
+            margin-left: 270px;
+            flex: 1;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .calendar-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar th, .calendar td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .calendar th {
+            background-color: #f0f0f0;
+        }
+        .calendar td {
+            height: 100px;
+        }
+        .event {
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Flex Student Portal</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="timetable.html">Timetable</a></li>
+            <li><a href="assignments.html">Assignments</a></li>
+            <li><a href="calendar.html">Calendar</a></li>
+            <li><a href="user.html">Profile</a></li>
+            <li><a href="todo.html">Todo</a></li>
+            <li><a href="notes.html">Notes</a></li>
+            <li><a href="groups.html">Groups</a></li>
+        </ul>
+    </div>
+    <div class="content" id="content">
+        <div class="header">
+            <div class="welcome">
+                <h2>Calendar</h2>
+                <p>Keep track of your schedule</p>
+            </div>
+        </div>
+        <div class="calendar-container">
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Week 1 -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="event">Meeting</div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <!-- Week 2 -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="event">Exam</div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <!-- More weeks can be added similarly -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function loadContent(section) {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = '';
+
+            if (section === 'calendar') {
+                contentDiv.innerHTML = `
+                    <div class="header">
+                        <div class="welcome">
+                            <h2>Calendar</h2>
+                            <p>Keep track of your schedule</p>
+                        </div>
+                    </div>
+                    <div class="calendar-container">
+                        <table class="calendar">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div class="event">Meeting</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div class="event">Exam</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } else {
+                contentDiv.innerHTML = `<div class="info-card"><h3>${section.charAt(0).toUpperCase() + section.slice(1)}</h3><p>Content for ${section} goes here.</p></div>`;
+            }
+        }
+    </script>
+</body>
+</html>

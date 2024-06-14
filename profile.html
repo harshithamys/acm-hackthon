@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/7b3dd0e5-a6ac-4f23-92ae-3aaa5b5f9d4b/webchat/v2/config.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            background-color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            border-right: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar li a {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .user-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .user-info h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .user-info p {
+            margin-top: 5px;
+            color: #777;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stats div {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+
+        .recent-activity {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .recent-activity h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .recent-activity table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .recent-activity th,
+        .recent-activity td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .recent-activity th {
+            background-color: #f0f0f0;
+        }
+
+        .view-profile {
+            background-color: #2196F3;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .view-profile:hover {
+            background-color: #1976D2;
+        }
+
+        .leaderboard {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard div {
+            width: 100px;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .leaderboard .crown {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .leaderboard .first {
+            background-color: #4eb6f1;
+        }
+
+        .leaderboard .second {
+            background-color: #f2e14b;
+        }
+
+        .leaderboard .third {
+            background-color: #f16363;
+        }
+
+        .leaderboard div p {
+            margin: 5px 0;
+        }
+
+        .list {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .list-item span {
+            width: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .stats div {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 150px;
+                padding: 10px;
+            }
+            .leaderboard div {
+                width: 80px;
+            }
+            .leaderboard .crown {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>STUDY PORTAL</h2>
+        <ul>
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+            <li>
+                <a href="timetable.html">Timetable</a>
+            </li>
+            <li>
+                <a href="assignments.html">Assignments</a>
+            </li>
+            <li>
+                <a href="calendar.html">Calendar</a>
+            </li>
+            <li>
+                <a href="user.html">Profile</a>
+            </li>
+            <li>
+                <a href="todo.html">Todo</a>
+            </li>
+            <li>
+                <a href="notes.html">Notes</a>
+            </li>
+            <li>
+                <a href="groups.html">Groups</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="user-info">
+            <img src="profile.png" alt="User Profile">
+            <div>
+                <h2>John Doe</h2>
+                <p>Grade: A</p>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div>
+                <h3>Assignments</h3>
+                <p>10 Completed</p>
+            </div>
+            <div>
+                <h3>Tests</h3>
+                <p>3 Passed</p>
+            </div>
+            <div>
+                <h3>Projects</h3>
+                <p>2 Done</p>
+            </div>
+        </div>
+        
+        <div class="recent-activity">
+            <h3>Recent Activity</h3>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>10/06/2023</td>
+                    <td>Math Assignment</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td>12/06/2023</td>
+                    <td>Science Project</td>
+                    <td>In Progress</td>
+                </tr>
+                <tr>
+                    <td>14/06/2023</td>
+                    <td>History Test</td>
+                    <td>Passed</td>
+                </tr>
+            </table>
+        </div>
+
+        <a href="#" class="view-profile">View Profile</a>
+
+        <div class="leaderboard" id="leaderboard">
+            <!-- Leaderboard content will be inserted here by JavaScript -->
+        </div>
+
+        <div class="list" id="assignment-list">
+            <!-- Assignment list content will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const leaderboardData = [
+                { position: 1, name: "First Place", image: "profile1.png" },
+                { position: 2, name: "Second Place", image: "profile2.png" },
+                { position: 3, name: "Third Place", image: "profile3.png" }
+            ];
+
+            const assignmentData = [
+                { position: 4, name: "Fourth Place", image: "profile4.png" },
+                { position: 5, name: "Fifth Place", image: "profile5.png" },
+                { position: 6, name: "Sixth Place", image: "profile6.png" }
+            ];
+
+            const leaderboardContainer = document.getElementById('leaderboard');
+            leaderboardData.forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.className = user.position === 1 ? 'first' : (user.position === 2 ? 'second' : 'third');
+                userDiv.innerHTML = `
+                    <div class="crown">${user.position === 1 ? '👑' : '0' + user.position}</div>
+                    <div><img src="${user.image}" alt="${user.name}" width="60" height="60"></div>
+                    <p>${user.name}</p>
+                `;
+                leaderboardContainer.appendChild(userDiv);
+            });
+
+            const assignmentListContainer = document.getElementById('assignment-list');
+            assignmentData.forEach(user => {
+                const listItem = document.createElement('div');
+                listItem.className = 'list-item';
+                listItem.innerHTML = `
+                    <span>${user.position}</span>
+                    <span><img src="${user.image}" alt="${user.name}" width="30" height="30"></span>
+                    <span>...</span>
+                `;
+                assignmentListContainer.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>

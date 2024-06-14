@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Portal</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .sidebar {
+        background-color: #fff;
+        width: 250px;
+        padding: 20px;
+        height: 100vh;
+        border-right: 1px solid #ddd;
+      }
+
+      .sidebar h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      .sidebar li {
+        margin-bottom: 10px;
+      }
+
+      .sidebar li a {
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .sidebar li a:hover {
+        background-color: #f0f0f0;
+      }
+
+      .content {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f0f0f0;
+      }
+
+      .button {
+        background-color: #2196f3;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #1976d2;
+      }
+
+      .edit-button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 3px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .edit-button:hover {
+        background-color: #45a049;
+      }
+
+      @media screen and (max-width: 600px) {
+        .sidebar {
+          width: 100%;
+        }
+
+        .content {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+        <h2>STUDY PORTAL</h2>
+        <ul>
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+            <li>
+                <a href="timetable.html">Timetable</a>
+            </li>
+            <li>
+                <a href="assignments.html">Assignments</a>
+            </li>
+            <li>
+                <a href="calender.html">Calendar</a>
+            </li>
+            <li>
+                <a href="user.html">Profile</a>
+            </li>
+            <li>
+                <a href="todo.html">Todo</a>
+            </li>
+            <li>
+                <a href="Notes.html">Notes</a>
+            </li>
+            <li>
+                <a href="groups.html">Groups</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+      <h1>December 2022</h1>
+      <div class="table-container">
+        <table id="timetable">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Subject</th>
+              <th>Room</th>
+              <th>Tutor</th>
+              <th>Start/End</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>Computer Science</td>
+              <td>111</td>
+              <td>#</td>
+              <td>07-08</td>
+              <td><button class="edit-button">Edit</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="button" onclick="addLesson()">Add lesson</button>
+    </div>
+
+    <script>
+      function addLesson() {
+        var days = ["Tuesday", "Wednesday", "Thursday", "Friday"]; // Add more days as needed
+        var table = document
+          .getElementById("timetable")
+          .getElementsByTagName("tbody")[0];
+        for (var i = 0; i < days.length; i++) {
+          var newRow = table.insertRow();
+          newRow.innerHTML = `
+        <td>${days[i]}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      `;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grading Demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            width: 200px;
+            padding: 20px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #f8f9fa;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin: 15px 0;
+        }
+
+        .sidebar li a {
+            color: #f8f9fa;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar li a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .content .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content .header .title {
+            font-size: 1.5rem;
+            color: #343a40;
+        }
+
+        .content .header .semester-select {
+            font-size: 1rem;
+        }
+
+        .content .stats {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .content .stats > div {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 30%;
+        }
+
+        .table-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9ecef;
+        }
+
+        .progress-bar {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar div {
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .progress-bar .green {
+            background-color: #28a745;
+        }
+
+        .progress-bar .yellow {
+            background-color: #ffc107;
+        }
+
+        .progress-bar .red {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>STUDY PORTAL</h2>
+        <ul>
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+            <li>
+                <a href="timetable.html">Timetable</a>
+            </li>
+            <li>
+                <a href="assignments.html">Assignments</a>
+            </li>
+            <li>
+                <a href="calendar.html">Calendar</a>
+            </li>
+            <li>
+                <a href="user.html">Profile</a>
+            </li>
+            <li>
+                <a href="todo.html">Todo</a>
+            </li>
+            <li>
+                <a href="notes.html">Notes</a>
+            </li>
+            <li>
+                <a href="groups.html">Groups</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <div class="title">Student Grading Demo</div>
+            <div class="semester-select">
+                <select>
+                    <option>Last semester</option>
+                    <option>Current semester</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Full name</th>
+                        <th>Curriculum Progress</th>
+                    </tr>
+                </thead>
+                <tbody id="student-table-body">
+                    <!-- Student data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div class="stats">
+            <div id="average-grade">
+                <h3>Individual average grade</h3>
+                <canvas id="averageGradeChart"></canvas>
+            </div>
+            <div id="attendance">
+                <h3>Student's attendance</h3>
+                <canvas id="attendanceChart"></canvas>
+            </div>
+            <div id="grades-by-subject">
+                <h3>Grade by subject</h3>
+                <canvas id="gradesBySubjectChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentData = [
+                { id: 1, name: "Aarav Sharma", progress: 90, color: "green" },
+                { id: 2, name: "Ishita Patel", progress: 80, color: "yellow" },
+                { id: 3, name: "Kabir Singh", progress: 85, color: "green" },
+                { id: 4, name: "Lakshmi Iyer", progress: 60, color: "red" },
+                { id: 5, name: "Rohan Desai", progress: 75, color: "yellow" },
+                { id: 6, name: "Saanvi Mehta", progress: 90, color: "green" },
+                { id: 7, name: "Arjun Reddy", progress: 70, color: "yellow" },
+                { id: 8, name: "Diya Kapoor", progress: 85, color: "green" }
+            ];
+
+            const tableBody = document.getElementById('student-table-body');
+            studentData.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="${student.color}" style="width: ${student.progress}%"></div>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            const averageGradeCtx = document.getElementById('averageGradeChart').getContext('2d');
+            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+            const gradesBySubjectCtx = document.getElementById('gradesBySubjectChart').getContext('2d');
+
+            new Chart(averageGradeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['1', '2', '3', '4', '5', '6'],
+                    datasets: [{
+                        label: 'Percent',
+                        data: [10, 50, 70, 80, 90, 100],
+                        backgroundColor: '#4eb6f1'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            new Chart(attendanceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Total'],
+                    datasets: [{
+                        label: 'Attendance',
+                        data: [100],
+                        backgroundColor: ['#2196F3']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            new Chart(gradesBySubjectCtx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: ['Maths', 'Biology', 'Literature', 'History'],
+                    datasets: [{
+                        label: 'Grade',
+                        data: [85, 70, 75, 90],
+                        backgroundColor: ['#4eb6f1', '#28a745', '#ffc107', '#dc3545']
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
